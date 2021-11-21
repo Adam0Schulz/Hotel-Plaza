@@ -1,5 +1,9 @@
+import javax.swing.JFrame;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("hello world");
+        System.out.println("hello");
+        Screen.window();
+
     }
 }

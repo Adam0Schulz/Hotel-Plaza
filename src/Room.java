@@ -1,3 +1,3 @@
-public class Room implements RoomInter {
+public class Room {
 
 }

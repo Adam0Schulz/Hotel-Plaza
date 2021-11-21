@@ -1,3 +1,3 @@
-public class Guest implements GuestInter {
+public class Guest {
 
 }

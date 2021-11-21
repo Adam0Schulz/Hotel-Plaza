@@ -1,3 +1,3 @@
-public class Booking implements BookingInter {
+public class Booking {
 
 }
