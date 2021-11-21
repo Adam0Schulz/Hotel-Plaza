@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 abstract class Screen {
 
+    // GUI
     public static void window() {
 
         JFrame frame = new JFrame();

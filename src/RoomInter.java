@@ -9,13 +9,13 @@ public interface RoomInter {
 
     double getPrice();
 
-    void ChangePrice(double newPrice);
+    void changePrice(double newPrice);
 
     int getRoomNum();
 
     String getType();
 
-    boolean getIsAvailable();
+    boolean IsAvailable();
 
     void setIsAvailable(boolean newAvailability);
 
