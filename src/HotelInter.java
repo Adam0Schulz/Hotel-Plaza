@@ -15,6 +15,6 @@ public interface HotelInter {
 
     void removeEmployee(Employee emp);
 
-    ArrayList<Room> getEmloyees();
+    ArrayList<Employee> getEmployees();
 
 }

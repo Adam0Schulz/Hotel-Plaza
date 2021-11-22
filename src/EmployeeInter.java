@@ -1,10 +1,5 @@
 public interface EmployeeInter {
 
-    // String title;
-    // String name;
-    // int phoneNum;
-    // double salary;
-
     String getTitle();
 
     void setTitle(String newTitle);
