@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Hotel implements Serializable {
 
     private ArrayList<Room> rooms = new ArrayList<Room>();
-    private ArrayList<Employee> employees = new ArrayList<Employee>();
+    private ArrayList employees = new ArrayList();
 
     public void addRoom(Room room) {
         rooms.add(room);

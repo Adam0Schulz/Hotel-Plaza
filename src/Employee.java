@@ -1,27 +1,38 @@
-abstract class Employee implements EmployeeInter {
+import java.io.Serializable;
+import java.util.Random;
 
-    private String title;
+abstract class Employee implements EmployeeInter, Serializable {
+
     private String name;
     private int phoneNum;
     private double salary;
+    private String password;
 
-    public Employee(){
+    public Employee() {
 
     }
 
-    public Employee(String title, String name, int phoneNum, double salary) {
-        this.setTitle(title);
+    public Employee(String name, int phoneNum, double salary) {
         this.setName(name);
         this.setPhoneNum(phoneNum);
         this.setSalary(salary);
+        createPassword();
     }
 
-    public String getTitle() {
-        return title;
+    private void createPassword() {
+        String passwordCharacters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&()*+,-.";
+        Random random = new Random();
+        String password = "";
+        for (int i = 0; i < 5; i++) {
+            int r = random.nextInt(passwordCharacters.length());
+            password += passwordCharacters.charAt(r);
+        }
+        this.password = password;
+        Screen.print(password);
     }
 
-    public void setTitle(String newTitle) {
-        this.title = newTitle;
+    public String getPassword() {
+        return password;
     }
 
     public String getName() {
@@ -48,7 +59,7 @@ abstract class Employee implements EmployeeInter {
         this.salary = newSalary;
     }
 
-    public String toString(){
-        return "Title: " + title + ", name: " + name;
+    public String toString() {
+        return "Name: " + name;
     }
 }

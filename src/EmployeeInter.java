@@ -1,9 +1,5 @@
 public interface EmployeeInter {
 
-    String getTitle();
-
-    void setTitle(String newTitle);
-
     String getName();
 
     void setName(String newName);

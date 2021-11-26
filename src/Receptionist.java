@@ -1,6 +1,10 @@
-public class Receptionist extends Employee{
+import java.io.Serializable;
 
-    public Receptionist(String title, String name, int phoneNum, double salary){
-        super(title, name, phoneNum, salary);
+public class Receptionist extends Employee implements Serializable {
+
+    public Receptionist(String name, int phoneNum, double salary) {
+        super(name, phoneNum, salary);
+
     }
+
 }

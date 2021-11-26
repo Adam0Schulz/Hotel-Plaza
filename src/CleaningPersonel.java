@@ -1,7 +1,9 @@
-public class CleaningPersonel extends Employee {
+import java.io.Serializable;
 
-    public CleaningPersonel(String title, String name, int phoneNum, double salary){
-        super(title, name, phoneNum, salary);
+public class CleaningPersonel extends Employee implements Serializable {
+
+    public CleaningPersonel(String name, int phoneNum, double salary) {
+        super(name, phoneNum, salary);
     }
 
 }

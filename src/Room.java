@@ -1,4 +1,6 @@
-public class Room {
+import java.io.Serializable;
+
+public class Room implements Serializable {
 
     private double price;
     private int roomNum;
@@ -7,8 +9,8 @@ public class Room {
     private Booking booking;
     private boolean wifi;
 
-    //Constructor
-    public Room(double price, int roomNum, String type, boolean wifi){
+    // Constructor
+    public Room(double price, int roomNum, String type, boolean wifi) {
         this.setPrice(price);
         this.setRoomNum(roomNum);
         this.setType(type);
@@ -60,7 +62,7 @@ public class Room {
         this.wifi = wifi;
     }
 
-    public String toString(){
+    public String toString() {
         return roomNum + " " + price + " " + type;
     }
 }

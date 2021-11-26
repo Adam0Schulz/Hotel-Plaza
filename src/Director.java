@@ -1,8 +1,11 @@
-public class Director extends Employee{
+import java.io.Serializable;
 
-    // The constructor is not needed if we are not adding additional info specific for the director
-    public Director(String title, String name, int phoneNum, double salary){
-        super(title, name, phoneNum, salary);
+public class Director extends Employee implements Serializable {
+
+    // The constructor is not needed if we are not adding additional info specific
+    // for the director
+    public Director(String name, int phoneNum, double salary) {
+        super(name, phoneNum, salary);
     }
 
 }
