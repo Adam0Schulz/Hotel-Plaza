@@ -29,4 +29,5 @@ public class Hotel implements Serializable {
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
+
 }
