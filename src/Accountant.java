@@ -1,7 +1,7 @@
 public class Accountant extends Employee{
 
     public Accountant(String title, String name, int phoneNum, double salary){
-        super(title, name, phoneNum, salary);
+        super("Accountant", name, phoneNum, 50000);
     }
 
 }
