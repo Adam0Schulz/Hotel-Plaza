@@ -6,14 +6,14 @@ public interface GuestInter {
 
     String getName();
 
-    void setName();
+    void setName(String name);
 
     String getAddress();
 
-    void setAddress();
+    void setAddress(String address);
 
     int getPhoneNum();
 
-    void setPhoneNum();
+    void setPhoneNum(int phoneNum);
 
 }
