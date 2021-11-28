@@ -1,3 +1,5 @@
+import java.io.*;
+import java.awt.*;
 import javax.swing.JFrame;
 
 public class App {
@@ -19,23 +21,31 @@ public class App {
 
     public static void login() {
         String name = Screen.enter("your full name ");
-        Screen.print(hotel);
         for (int i = 0; i < hotel.getEmployees().size(); i++) {
-            if (hotel.getEmployees().get(i).getName().equalsIgnoreCase(name)) {
+            Screen.print(hotel.getEmployees());
+            if (((Employee) hotel.getEmployees().get(i)).getName().equalsIgnoreCase(name)) {
 
                 String password = Screen.enter("your password ");
-                if (hotel.getEmployees().get(i).getPassword().equals(password)) {
-                    currentUser = hotel.getEmployees().get(i);
-                    Screen.print(currentUser);
-                    mainMenu();
+                if (((Employee) hotel.getEmployees().get(i)).getPassword().equals(password)) {
+                    if (hotel.getEmployees().get(i) instanceof Director) {
+                        currentUser = (Director) hotel.getEmployees().get(i);
+                        mainMenu();
+                    } else if (hotel.getEmployees().get(i) instanceof Accountant) {
+                        currentUser = (Accountant) hotel.getEmployees().get(i);
+                        Menu.accountantMenu();
+                    } else if (hotel.getEmployees().get(i) instanceof Receptionist) {
+                        currentUser = (Receptionist) hotel.getEmployees().get(i);
+                        mainMenu();
+                    } else if (hotel.getEmployees().get(i) instanceof CleaningPersonel) {
+                        currentUser = (CleaningPersonel) hotel.getEmployees().get(i);
+                        mainMenu();
+                    }
+
                 } else {
                     Screen.error("This password is incorrect");
                     login();
                 }
 
-            } else {
-                Screen.error("This name doesn't exist in the system");
-                login();
             }
         }
         currentUser = null;

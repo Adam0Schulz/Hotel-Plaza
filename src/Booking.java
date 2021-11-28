@@ -1,8 +1,9 @@
 import java.util.ArrayList;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public class Booking implements BookingInter {
+public class Booking implements BookingInter, Serializable {
 
     // example of how to get local date
     // startDate = LocalDate.of(2021, Month.JANUARY, 1);
@@ -12,11 +13,13 @@ public class Booking implements BookingInter {
     private LocalDate endDate;
     private long numOfNights;
     private ArrayList<Guest> guests;
+    private int roomNum;
 
-    public Booking(LocalDate startDate, LocalDate endDate) {
+    public Booking(LocalDate startDate, LocalDate endDate, int roomNum) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.numOfNights = calcNumOfNights(startDate, endDate);
+        this.roomNum = roomNum;
     }
 
     public LocalDate getStartDate() {
@@ -53,6 +56,14 @@ public class Booking implements BookingInter {
 
     public void removeGuest(Guest guest) {
         guests.remove(guest);
+    }
+
+    public void setRoom(Room room) {
+        this.roomNum = room.getRoomNum();
+    }
+
+    public int getRoomNum() {
+        return roomNum;
     }
 
     public String toString() {

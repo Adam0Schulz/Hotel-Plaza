@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.ImageIcon;
@@ -40,6 +41,31 @@ abstract class Screen {
 
     public static int enterInt(String info) {
         return Integer.parseInt(enter(info));
+    }
+
+    // Displays options
+    public static void listOptions(ArrayList<String> options) {
+        if (options.size() == 0) {
+            print("\nThis list is empty\n");
+        } else {
+            for (int i = 1; i <= options.size(); i++) {
+                print(i + ": " + options.get(i - 1));
+            }
+        }
+
+    }
+
+    // Displays options and returns the choice int
+    public static int choice(ArrayList<String> options) {
+        print("Please choose one of the following: ");
+        listOptions(options);
+        int choice = scanInt();
+        if (options.size() < choice) {
+            error("Incorrect choice");
+            pause();
+            App.mainMenu();
+        }
+        return choice;
     }
 
     // Basic sout

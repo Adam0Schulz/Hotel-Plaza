@@ -1,4 +1,5 @@
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class DatabaseConn {
@@ -57,7 +58,12 @@ public abstract class DatabaseConn {
 
         hotel.addEmployee(new Director("One and only Babak Asgari", 28525011, 1000000));
         hotel.addEmployee(new Receptionist("Simona Kardel", 22819043, 500000));
+        hotel.addEmployee(new Accountant("random guy or girl", 22558866, 2000));
         hotel.addEmployee(new CleaningPersonel("Adam Schulz", 33557799, 200));
+
+        LocalDate today = LocalDate.now();
+        hotel.addBooking(new Booking(today, today.plusDays(3), hotel.getRooms().get(1).getRoomNum()));
+        hotel.addBooking(new Booking(today, today.plusDays(7), hotel.getRooms().get(0).getRoomNum()));
 
         save(hotel);
     }
