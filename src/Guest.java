@@ -1,4 +1,6 @@
-public class Guest implements GuestInter {
+import java.io.Serializable;
+
+public class Guest implements GuestInter, Serializable {
 
     private String name;
     private String address;

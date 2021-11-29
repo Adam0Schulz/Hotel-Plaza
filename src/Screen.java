@@ -68,6 +68,68 @@ abstract class Screen {
         return choice;
     }
 
+    // Displays options, selects the choice from the options and returns it
+    public static Object chooseListItem(ArrayList array) {
+
+        if (array.size() == 0) {
+            print("\nThis list is empty\n");
+            pause();
+            return null;
+        }
+
+        ArrayList<String> strings = new ArrayList<String>();
+        for (Object object : array) {
+            strings.add(object.toString());
+
+        }
+
+        if (array.get(1) instanceof Room) {
+            Room room;
+            int choice = choice(strings);
+            room = (Room) array.get(choice);
+            return room;
+
+        } else if (array.get(1) instanceof Booking) {
+            Booking booking;
+
+            int choice = choice(strings);
+            booking = (Booking) array.get(choice);
+            return booking;
+
+        } else if (array.get(1) instanceof Guest) {
+            Guest guest;
+
+            int choice = choice(strings);
+            guest = (Guest) array.get(choice);
+            return guest;
+
+        } else if (array.get(1) instanceof Employee) {
+            Employee employee;
+
+            int choice = choice(strings);
+            employee = (Employee) array.get(choice);
+            return employee;
+
+        } else if (array.get(1) instanceof String) {
+            String string;
+
+            int choice = choice(strings);
+            string = (String) array.get(choice);
+            return string;
+
+        } else if (array.get(1) instanceof Integer) {
+            int integer;
+
+            int choice = choice(strings);
+            integer = (int) array.get(choice);
+            return integer;
+
+        } else {
+            return null;
+        }
+
+    }
+
     // Basic sout
     public static void print(Object value) {
         System.out.println(value);

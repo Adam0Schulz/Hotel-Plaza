@@ -5,7 +5,7 @@ public class Room implements Serializable {
     private double price;
     private int roomNum;
     private String type;
-    private boolean isAvailable;
+    private boolean isAvailable = true;
     private boolean wifi;
     private boolean isClean = true;
 

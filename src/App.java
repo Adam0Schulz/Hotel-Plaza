@@ -15,8 +15,8 @@ public class App {
         // System.out.println("hello");
         // Screen.window();
 
-        login();
-
+        // login();
+        Menu.receptionistMenu();
     }
 
     public static void login() {
@@ -35,7 +35,7 @@ public class App {
                         Menu.accountantMenu();
                     } else if (hotel.getEmployees().get(i) instanceof Receptionist) {
                         currentUser = (Receptionist) hotel.getEmployees().get(i);
-                        mainMenu();
+                        Menu.receptionistMenu();
                     } else if (hotel.getEmployees().get(i) instanceof CleaningPersonel) {
                         currentUser = (CleaningPersonel) hotel.getEmployees().get(i);
                         mainMenu();

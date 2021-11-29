@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-import java.io.Serializable;
+import java.awt.Desktop;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -9,17 +10,20 @@ public class Booking implements BookingInter, Serializable {
     // startDate = LocalDate.of(2021, Month.JANUARY, 1);
     // endDate = LocalDate.of(2021, Month.JANUARY, 5);
 
+    public static Hotel hotel = App.getDatabase();
+
     private LocalDate startDate;
     private LocalDate endDate;
     private long numOfNights;
-    private ArrayList<Guest> guests;
-    private int roomNum;
+    private ArrayList<Guest> guests = new ArrayList<Guest>();
+    private Room room;
 
-    public Booking(LocalDate startDate, LocalDate endDate, int roomNum) {
+    public Booking(LocalDate startDate, LocalDate endDate, Room room, Guest guest) {
         this.setStartDate(startDate);
         this.setEndDate(endDate);
         this.numOfNights = calcNumOfNights(startDate, endDate);
-        this.roomNum = roomNum;
+        this.room = room;
+        this.guests.add(guest);
     }
 
     public LocalDate getStartDate() {
@@ -59,11 +63,40 @@ public class Booking implements BookingInter, Serializable {
     }
 
     public void setRoom(Room room) {
-        this.roomNum = room.getRoomNum();
+        this.room = room;
     }
 
     public int getRoomNum() {
-        return roomNum;
+        return room.getRoomNum();
+    }
+
+    public void printReceipt() {
+        try {
+            FileWriter writer = new FileWriter("receipt" + room.getRoomNum() + ".txt");
+            writer.write("Room number: " + room.getRoomNum() + "\n");
+            writer.write("Start date: " + startDate + "\n");
+            writer.write("End date: " + endDate + "\n");
+            writer.write("Number of nights: " + numOfNights + "\n");
+            writer.write("Guests: \n");
+            for (Guest guest : guests) {
+                writer.write(guest.getName() + " " + guest.getPhoneNum() + "\n");
+            }
+            writer.write("Price: " + room.getPrice() + "\n");
+            writer.close();
+
+            Runtime.getRuntime().exec("python txtToPdf.py");
+            File file = new File("receipt.pdf");
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(file);
+            /*
+             * File file = new File("receipt" + room.getRoomNum() + ".txt");
+             * Desktop desktop = Desktop.getDesktop();
+             * desktop.open(file);
+             */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public String toString() {

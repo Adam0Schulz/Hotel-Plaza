@@ -1,11 +1,10 @@
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public abstract class DatabaseConn {
 
     public static void main(String[] args) {
-        delete();
+        // delete();
         initialCreation();
     }
 
@@ -55,6 +54,8 @@ public abstract class DatabaseConn {
 
         hotel.addRoom(new Room(100, 1001, "suit", true));
         hotel.addRoom(new Room(200, 2001, "two-bed", false));
+        hotel.addRoom(new Room(100, 1002, "suit", true));
+        hotel.addRoom(new Room(200, 2002, "two-bed", false));
 
         hotel.addEmployee(new Director("One and only Babak Asgari", 28525011, 1000000));
         hotel.addEmployee(new Receptionist("Simona Kardel", 22819043, 500000));
@@ -62,8 +63,13 @@ public abstract class DatabaseConn {
         hotel.addEmployee(new CleaningPersonel("Adam Schulz", 33557799, 200));
 
         LocalDate today = LocalDate.now();
-        hotel.addBooking(new Booking(today, today.plusDays(3), hotel.getRooms().get(1).getRoomNum()));
-        hotel.addBooking(new Booking(today, today.plusDays(7), hotel.getRooms().get(0).getRoomNum()));
+
+        hotel.addBooking(new Booking(today, today.plusDays(3),
+                hotel.getRooms().get(1),
+                new Guest("Adam Schulz", "Address 12", 11477)));
+        hotel.addBooking(new Booking(today, today.plusDays(7),
+                hotel.getRooms().get(0),
+                new Guest("John Random", "Address 2", 8877)));
 
         save(hotel);
     }
