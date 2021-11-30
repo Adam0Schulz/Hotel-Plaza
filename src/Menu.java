@@ -11,17 +11,29 @@ public class Menu {
         ArrayList<String> options = new ArrayList<>();
         options.add("List all employees");
         options.add("Add employee");
+        options.add("Search for employee by name");
         options.add("Add room");
         options.add("List all rooms");
+        options.add("Search for room by number");
 
         int choice = Screen.choice(options);
         switch (choice) {
             case 1:
                 Employee employee = listEmployees();
                 modifyEmployee(employee);
+                break;
             case 2:
                 createEmployee();
+                break;
             case 3:
+                String name = Screen.enter("name of the employee");
+                Screen.print("To modify employee please enter the corresponding number.");
+                ArrayList searchedEmployees = hotel.searchForEmployee(name);
+                hotel.printOptions(searchedEmployees);
+                int employeeIndex = Screen.scanInt();
+                modifyEmployee((Employee) searchedEmployees.get(employeeIndex - 1));
+                break;
+            case 4:
                 String[] roomToAdd = Screen.enter(
                         "price, room number, room type(single / double / suite) and true/false for wifi as in example below.\n999, 345, double, true")
                         .split(", ", 4);
@@ -31,9 +43,23 @@ public class Menu {
                 hotel.addRoom(new Room(newPrice, newRoomNumber, roomToAdd[2], newWifi));
                 Screen.print("Room number " + newRoomNumber + " has been added.");
                 break;
-            case 4:
+            case 5:
                 Room currentRoom = listRooms();
                 modifyRoom(currentRoom);
+                break;
+            case 6:
+                int roomNumber = Screen.enterInt("room number");
+                Room searchedRoom = hotel.searchForRoom(roomNumber);
+                if (searchedRoom == null) {
+                    Screen.print("No match found");
+                } else {
+                    Screen.print("To modify room please enter '1'.");
+                    Screen.print(searchedRoom);
+                    if (Screen.scanInt() == 1) {
+                        modifyRoom(searchedRoom);
+                    }
+                }
+                break;
         }
     }
 
@@ -52,28 +78,33 @@ public class Menu {
                 Screen.print("Current name: " + employee.getName());
                 employee.setName(Screen.enter("new name"));
                 Screen.print("Name has been changed.");
+                Screen.pause();
                 break;
             case 2:
                 Screen.print("Current phone number: " + employee.getPhoneNum());
                 employee.setPhoneNum(Screen.enterInt("new phone number"));
                 Screen.print("Phone number has been changed.");
+                Screen.pause();
                 break;
             case 3:
                 Screen.print("Current salary: " + employee.getSalary());
                 employee.setSalary(Screen.enterInt("new salary"));
                 Screen.print("Salary has been changed.");
+                Screen.pause();
                 break;
             case 4:
                 hotel.removeEmployee(employee);
                 Screen.print(employee.getName() + " has been deleted.");
+                Screen.pause();
                 break;
         }
+        directorMenu();
     }
 
     // prints all employees and returns selected employee
     public static Employee listEmployees() {
         Screen.print("To modify employee please enter the corresponding number.");
-        hotel.printEmployees();
+        hotel.printOptions(hotel.getEmployees());
         int employeeIndex = Screen.scanInt();
         return (Employee) hotel.getEmployees().get(employeeIndex - 1);
     }
@@ -122,35 +153,40 @@ public class Menu {
                 Screen.print("Current price: " + currentRoom.getPrice());
                 currentRoom.setPrice(Screen.enterInt("new price")); // maybe we need scanner for double
                 Screen.print("Price has been changed.");
+                Screen.pause();
                 break;
             case 2:
                 Screen.print("Current room number: " + currentRoom.getRoomNum());
                 currentRoom.setRoomNum(Screen.enterInt("new room number"));
                 Screen.print("Room number has been changed.");
+                Screen.pause();
                 break;
             case 3:
                 Screen.print("Current type: " + currentRoom.getType());
                 currentRoom.setType(Screen.enter("new type"));
                 Screen.print("Type has been changed.");
+                Screen.pause();
                 break;
             case 4:
                 Screen.print("Current wifi status: " + currentRoom.isWifi());
                 boolean isWifi = Boolean.parseBoolean(Screen.enter("new wifi status"));
                 currentRoom.setWifi(isWifi);
                 Screen.print("Wifi status has been changed.");
+                Screen.pause();
                 break;
             case 5:
                 hotel.removeRoom(currentRoom);
                 Screen.print("Room number " + currentRoom.getRoomNum() + " has been deleted.");
+                Screen.pause();
                 break;
         }
-
+        directorMenu();
     }
 
     // prints all rooms and returns selected room
     public static Room listRooms() {
         Screen.print("To modify room please enter the corresponding number.");
-        hotel.printRooms();
+        hotel.printOptions(hotel.getRooms());
         return hotel.getRooms().get(Screen.scanInt() - 1);
     }
 
