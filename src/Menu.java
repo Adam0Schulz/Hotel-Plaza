@@ -7,7 +7,7 @@ public class Menu {
 
     static Hotel hotel = App.getDatabase();
 
-    public static void directorMenu()throws NumberFormatException {
+    public static void directorMenu() throws NumberFormatException {
         ArrayList<String> options = new ArrayList<>();
         options.add("List all employees");
         options.add("Add employee");
@@ -15,18 +15,20 @@ public class Menu {
         options.add("List all rooms");
 
         int choice = Screen.choice(options);
-        switch(choice){
+        switch (choice) {
             case 1:
                 Employee employee = listEmployees();
                 modifyEmployee(employee);
             case 2:
                 createEmployee();
             case 3:
-                String[] roomToAdd = Screen.enter("price, room number, room type(single / double / suite) and true/false for wifi as in example below.\n999, 345, double, true").split(", ", 4);
+                String[] roomToAdd = Screen.enter(
+                        "price, room number, room type(single / double / suite) and true/false for wifi as in example below.\n999, 345, double, true")
+                        .split(", ", 4);
                 double newPrice = Double.parseDouble(roomToAdd[0]);
                 int newRoomNumber = Integer.parseInt(roomToAdd[1]);
                 boolean newWifi = Boolean.parseBoolean(roomToAdd[3]);
-                hotel.addRoom(new Room(newPrice, newRoomNumber, roomToAdd[2],newWifi));
+                hotel.addRoom(new Room(newPrice, newRoomNumber, roomToAdd[2], newWifi));
                 Screen.print("Room number " + newRoomNumber + " has been added.");
                 break;
             case 4:
@@ -35,8 +37,9 @@ public class Menu {
         }
     }
 
-    // displays menu for modification of employee and changes selected attributes (go back method needs to be added)
-    public static void modifyEmployee(Employee employee){
+    // displays menu for modification of employee and changes selected attributes
+    // (go back method needs to be added)
+    public static void modifyEmployee(Employee employee) {
         ArrayList<String> opt = new ArrayList<>();
         opt.add("Modify name");
         opt.add("Modify phone number");
@@ -68,7 +71,7 @@ public class Menu {
     }
 
     // prints all employees and returns selected employee
-    public static Employee listEmployees(){
+    public static Employee listEmployees() {
         Screen.print("To modify employee please enter the corresponding number.");
         hotel.printEmployees();
         int employeeIndex = Screen.scanInt();
@@ -76,14 +79,15 @@ public class Menu {
     }
 
     // displays menu for adding employee to the database
-    public static void createEmployee(){
+    public static void createEmployee() {
         ArrayList<String> choices = new ArrayList<>();
         choices.add("Accountant");
         choices.add("Receptionist");
         choices.add("Cleaning Personel");
 
         int input = Screen.choice(choices);
-        String[] employeeToAdd = Screen.enter("full name, phoneNum and salary separated by comma and space").split(", ", 3);
+        String[] employeeToAdd = Screen.enter("full name, phoneNum and salary separated by comma and space").split(", ",
+                3);
         int newNum = Integer.parseInt(employeeToAdd[1]);
         double newSalary = Double.parseDouble(employeeToAdd[2]);
         switch (input) {
@@ -103,7 +107,7 @@ public class Menu {
     }
 
     // displays menu to modify room
-    public static void modifyRoom(Room currentRoom){
+    public static void modifyRoom(Room currentRoom) {
         ArrayList<String> attributes = new ArrayList<>();
         attributes.add("Modify price");
         attributes.add("Modify room number");
@@ -113,7 +117,7 @@ public class Menu {
 
         int attribute = Screen.choice(attributes);
 
-        switch (attribute){
+        switch (attribute) {
             case 1:
                 Screen.print("Current price: " + currentRoom.getPrice());
                 currentRoom.setPrice(Screen.enterInt("new price")); // maybe we need scanner for double
@@ -141,16 +145,14 @@ public class Menu {
                 break;
         }
 
-
     }
 
     // prints all rooms and returns selected room
-    public static Room listRooms(){
+    public static Room listRooms() {
         Screen.print("To modify room please enter the corresponding number.");
         hotel.printRooms();
         return hotel.getRooms().get(Screen.scanInt() - 1);
     }
-
 
     public static void receptionistMenu() {
         // Creates options
@@ -158,6 +160,7 @@ public class Menu {
         options.add("Create a booking");
         options.add("Modify a booking");
 
+        Screen.print(hotel.getBookings().size() + ", " + hotel.getBookings().get(0).getGuest().getName());
         // Displays options and stores the choice input
         int choice = Screen.choice(options);
         switch (choice) {
@@ -200,6 +203,94 @@ public class Menu {
                 break;
             case 2:
 
+                // modify a booking
+                String bookName = Screen.enter("name for which was the booking made");
+                ArrayList<Booking> bookings = new ArrayList<Booking>();
+                for (Booking booking : hotel.getBookings()) {
+                    if (booking.getGuest().getName().equalsIgnoreCase(bookName)) {
+                        bookings.add(booking);
+                    }
+                }
+
+                Booking result = (Booking) Screen.chooseListItem(bookings);
+
+                ArrayList<String> sOptions = new ArrayList<String>();
+                sOptions.add("Start date");
+                sOptions.add("End date");
+                sOptions.add("Guest information");
+                sOptions.add("Room number");
+
+                int subChoice = Screen.choice(sOptions);
+                int index = hotel.getBookings().indexOf(result);
+                switch (subChoice) {
+                    case 1:
+                        Screen.print("Previous date: " + result.getStartDate());
+                        LocalDate nStartDate = LocalDate.parse(Screen.enter("new start date of the booking"));
+                        result.setStartDate(nStartDate);
+                        hotel.updateBooking(index, result);
+                        Screen.print("Start date successfully changed");
+                        break;
+                    case 2:
+                        Screen.print("Previous date: " + result.getEndDate());
+                        LocalDate nEndDate = LocalDate.parse(Screen.enter("new end date of the booking"));
+                        result.setEndDate(nEndDate);
+                        hotel.updateBooking(index, result);
+                        Screen.print("End date successfully changed");
+                        break;
+                    case 3:
+                        Screen.print("Guest's attributes:\n1: name\n2: address\n3: phone number/phone");
+                        String nGuestInfo = Screen.enter(
+                                "The attribute that you want to change and the value separated by ' - ' (examp. name - John Newman)");
+                        String[] nGuestArray = nGuestInfo.split(" - ");
+                        if (nGuestArray[0].equalsIgnoreCase("name")) {
+                            Screen.print("Previous name: " + result.getGuest().getName());
+                            result.getGuest().setName(nGuestArray[1]);
+                            hotel.updateBooking(index, result);
+                            Screen.print("New name: " + result.getGuest().getName());
+                            Screen.pause();
+                            receptionistMenu();
+                        } else if (nGuestArray[0].equalsIgnoreCase("address")) {
+                            Screen.print("Previous address: " + result.getGuest().getAddress());
+                            result.getGuest().setAddress(nGuestArray[1]);
+                            hotel.updateBooking(index, result);
+                            Screen.print("New address: " + result.getGuest().getAddress());
+                            Screen.pause();
+                            receptionistMenu();
+                        } else if (nGuestArray[0].equalsIgnoreCase("phone number")
+                                || nGuestArray[0].equalsIgnoreCase("phone")) {
+                            try {
+                                Screen.print("Previous phone number: " + result.getGuest().getPhoneNum());
+                                result.getGuest().setPhoneNum(Integer.parseInt(nGuestArray[1]));
+                                hotel.updateBooking(index, result);
+                                Screen.print("New address: " + result.getGuest().getAddress());
+                                Screen.pause();
+                                receptionistMenu();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Screen.error("Incorrect attribute");
+                            receptionistMenu();
+                        }
+                        break;
+                    case 4:
+                        Screen.print("Previous room number: " + result.getRoomNum());
+                        int nRoomNum = Screen.enterInt("New room number of the booking: ");
+                        if (hotel.getRoom(nRoomNum) == null) {
+                            if (hotel.getRoom(nRoomNum).IsAvailable() == true) {
+                                result.setRoom(hotel.getRoom(nRoomNum));
+                                Screen.print("Room number successfully changed");
+                            } else {
+                                Screen.error("This room is not available");
+                                receptionistMenu();
+                            }
+
+                        } else {
+                            Screen.error("The room doesn't exist");
+                        }
+                        break;
+                }
                 break;
 
         }
