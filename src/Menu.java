@@ -40,7 +40,6 @@ public class Menu {
             case 1:
                 Screen.print("Available rooms");
                 ArrayList<Integer> subOptions = new ArrayList<Integer>();
-                Screen.print(hotel.getRooms().toString());
                 for (Room room : hotel.getRooms()) {
                     if (room.IsAvailable()) {
                         subOptions.add(room.getRoomNum());

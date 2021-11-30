@@ -1,5 +1,3 @@
-Employee's name;position;salary
-One and only Babak Asgari;;1000000.0
-Simona Kardel;;500000.0
-random guy or girl;;2000.0
-Adam Schulz;;200.0
+booking start date;booking end date;booking room number
+2021-11-29;2021-12-02;2001
+2021-11-29;2021-12-06;1001

@@ -85,14 +85,12 @@ public class Booking implements BookingInter, Serializable {
             writer.close();
 
             Runtime.getRuntime().exec("python txtToPdf.py");
-            File file = new File("receipt.pdf");
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(file);
             /*
              * File file = new File("receipt" + room.getRoomNum() + ".txt");
              * Desktop desktop = Desktop.getDesktop();
              * desktop.open(file);
              */
+
         } catch (Exception e) {
             e.printStackTrace();
         }

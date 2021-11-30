@@ -71,7 +71,9 @@ abstract class Screen {
     // Displays options, selects the choice from the options and returns it
     public static Object chooseListItem(ArrayList array) {
 
-        if (array.size() == 0) {
+        try {
+            Object object = (Object) array.get(1);
+        } catch (Exception e) {
             print("\nThis list is empty\n");
             pause();
             return null;
