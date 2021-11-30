@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Hotel implements Serializable {
 
@@ -58,9 +59,9 @@ public class Hotel implements Serializable {
         return null;
     }
 
-    public void printRooms(){
+/*    public void printRooms(){
         for (int i = 1; i < rooms.size(); i++){
-            System.out.println(i + " " + rooms.get(i-1));
+            System.out.println(i + " " + rooms.get(i - 1));
         }
     }
 
@@ -68,6 +69,33 @@ public class Hotel implements Serializable {
         for (int i = 1; i < employees.size(); i++){
             System.out.println(i + " " + employees.get(i - 1));
         }
+    }*/
+
+    public void printOptions(ArrayList arrayList){
+        if(arrayList == null){
+            System.out.println("This list is empty.");
+        }
+        for (int i = 1; i < arrayList.size(); i++){
+            System.out.println(i + " " + arrayList.get(i - 1));
+        }
+    }
+
+    public ArrayList searchForEmployee(String name) {
+        ArrayList array = new ArrayList();
+        for (Object emp : employees){
+            Employee employee = (Employee) emp;
+            if(employee.getName().toLowerCase().contains(name.toLowerCase())){
+                array.add(employee);
+            }
+        } return array;
+    }
+
+    public Room searchForRoom(int roomNumber){
+        for(Room room : rooms){
+            if(room.getRoomNum() == roomNumber){
+               return room;
+            }
+        } return null;
     }
 
 }

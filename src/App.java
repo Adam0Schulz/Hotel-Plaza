@@ -16,7 +16,7 @@ public class App {
         // Screen.window();
 
         // login();
-        Menu.receptionistMenu();
+
     }
 
     public static void login() {
