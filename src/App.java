@@ -16,7 +16,8 @@ public class App {
         // Screen.window();
 
         // login();
-
+        // Menu.receptionistMenu();
+        // Menu.accountantMenu();
     }
 
     public static void login() {

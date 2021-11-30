@@ -11,7 +11,8 @@ for root, dirs, files in os.walk(".", topdown=False):
             f = open(name, "r")
             for x in f:
                 pdf.cell(50, 5, txt=x, ln=1, align='C')
+            f.close()
             pdf.output("receipt.pdf")
             os.remove(name)
-            wb.open_new(
-                r'C:\02_Škola\Dánsko\Škola\Programovanie\HotelPlaza\receipt.pdf')
+
+wb.open_new(r'C:\02_Škola\Dánsko\Škola\Programovanie\HotelPlaza\receipt.pdf')
