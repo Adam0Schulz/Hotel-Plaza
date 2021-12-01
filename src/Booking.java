@@ -22,6 +22,7 @@ public class Booking implements BookingInter, Serializable {
         this.numOfNights = calcNumOfNights(startDate, endDate);
         this.room = room;
         this.guest = guest;
+        this.room.addOccupied(startDate, numOfNights);
     }
 
     public LocalDate getStartDate() {
@@ -51,18 +52,6 @@ public class Booking implements BookingInter, Serializable {
     public Guest getGuest() {
         return guest;
     }
-
-    /*
-     * public void addGuest(Guest guest) {
-     * guests.add(guest);
-     * }
-     */
-
-    /*
-     * public void removeGuest(Guest guest) {
-     * guests.remove(guest);
-     * }
-     */
 
     public void setRoom(Room room) {
         this.room = room;

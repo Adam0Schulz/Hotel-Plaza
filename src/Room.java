@@ -1,11 +1,13 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Room implements Serializable {
 
     private double price;
     private int roomNum;
     private String type;
-    private boolean isAvailable = true;
+    private ArrayList<LocalDate> occupied = new ArrayList<LocalDate>();
     private boolean wifi;
     private boolean isClean = true;
 
@@ -46,12 +48,27 @@ public class Room implements Serializable {
         this.type = type;
     }
 
-    public boolean IsAvailable() {
-        return isAvailable;
+    public ArrayList<LocalDate> getOccupied() {
+        return occupied;
     }
 
-    public void setIsAvailable(boolean available) {
-        isAvailable = available;
+    public void addOccupied(LocalDate StartDate, long numOfDays) {
+        occupied.add(StartDate);
+        for (int i = 1; i <= numOfDays; i++) {
+            occupied.add(StartDate.plusDays(i));
+        }
+    }
+
+    public boolean isOccupied(LocalDate startDate, long numOfDays) {
+        boolean isOccupied = false;
+        for (int i = 0; i < numOfDays; i++) {
+            if (occupied.contains(startDate.plusDays(i))) {
+                isOccupied = true;
+            } else {
+                isOccupied = false;
+            }
+        }
+        return isOccupied;
     }
 
     public boolean isWifi() {

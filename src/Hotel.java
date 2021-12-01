@@ -41,7 +41,7 @@ public class Hotel implements Serializable {
     public void addBooking(Booking booking) {
         allBookings.add(booking);
         Room room = getRoom(booking.getRoomNum());
-        room.setIsAvailable(false);
+        room.addOccupied(booking.getStartDate(), booking.getNumOfNights());
         addRoom(room);
     }
 

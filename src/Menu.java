@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.awt.Desktop;
 import java.util.ArrayList;
 
@@ -60,7 +61,8 @@ public class Menu {
                     }
                 }
                 break;
-        } Screen.clear();
+        }
+        Screen.clear();
         directorMenu();
     }
 
@@ -98,7 +100,8 @@ public class Menu {
                 Screen.print(employee.getName() + " has been deleted.");
                 Screen.pause();
                 break;
-        } Screen.clear();
+        }
+        Screen.clear();
         directorMenu();
     }
 
@@ -180,7 +183,8 @@ public class Menu {
                 Screen.print("Room number " + currentRoom.getRoomNum() + " has been deleted.");
                 Screen.pause();
                 break;
-        } Screen.clear();
+        }
+        Screen.clear();
         directorMenu();
     }
 
@@ -202,27 +206,40 @@ public class Menu {
         int choice = Screen.choice(options);
         switch (choice) {
             case 1:
-                Screen.print("Available rooms");
-                ArrayList<Integer> subOptions = new ArrayList<Integer>();
-                for (Room room : hotel.getRooms()) {
-                    if (room.IsAvailable()) {
-                        subOptions.add(room.getRoomNum());
-                    }
-                }
-
+                // Screen.print("Available rooms");
                 Booking newBooking = null;
-                int roomNum = (int) Screen.chooseListItem(subOptions);
-                Guest guest = new Guest(Screen.enter("guest's full name: "), Screen.enter("guest's address: "),
-                        Screen.enterInt("guest's phone number: "));
+                ArrayList<String> subOptions = new ArrayList<String>();
+                subOptions.add("Single-bed");
+                subOptions.add("Double-bed");
+                subOptions.add("Suite");
+
+                String roomType = (String) Screen.chooseListItem(subOptions);
+                LocalDate startDate = null;
+                LocalDate endDate = null;
                 try {
-                    LocalDate startDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
-                    LocalDate endDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
-                    newBooking = new Booking(startDate, endDate, hotel.getRoom(roomNum), guest);
-                    hotel.addBooking(newBooking);
+                    startDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
+                    endDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
                 } catch (Exception e) {
-                    Screen.error("Incorrect date format inputed");
+                    Screen.error("Incorrect date format");
                     receptionistMenu();
                 }
+
+                long numOfDays = ChronoUnit.DAYS.between(startDate, endDate);
+
+                Screen.print("Available rooms");
+                ArrayList<Integer> subOptions2 = new ArrayList<Integer>();
+                LocalDate today = LocalDate.now();
+                for (Room room : hotel.getRooms()) {
+                    if (!(room.isOccupied(startDate, numOfDays)) && room.getType().equals(roomType)) {
+                        subOptions2.add(room.getRoomNum());
+                    }
+                }
+                int roomNum = (int) Screen.chooseListItem(subOptions2);
+                Guest guest = new Guest(Screen.enter("guest's full name"), Screen.enter("guest's address"),
+                        Screen.enterInt("guest's phone number"));
+
+                newBooking = new Booking(startDate, endDate, hotel.getRoom(roomNum), guest);
+                hotel.addBooking(newBooking);
 
                 if (hotel.getBookings().get(hotel.getBookings().size() - 1).getRoomNum() == newBooking.getRoomNum()) {
                     Screen.print("Booking has been made successfully");
@@ -315,7 +332,8 @@ public class Menu {
                         Screen.print("Previous room number: " + result.getRoomNum());
                         int nRoomNum = Screen.enterInt("New room number of the booking: ");
                         if (hotel.getRoom(nRoomNum) == null) {
-                            if (hotel.getRoom(nRoomNum).IsAvailable() == true) {
+                            if (hotel.getRoom(nRoomNum).isOccupied(result.getStartDate(),
+                                    result.getNumOfNights()) == false) {
                                 result.setRoom(hotel.getRoom(nRoomNum));
                                 Screen.print("Room number successfully changed");
                             } else {

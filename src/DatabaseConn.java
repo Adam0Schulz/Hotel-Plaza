@@ -52,10 +52,10 @@ public abstract class DatabaseConn {
     public static void initialCreation() {
         Hotel hotel = new Hotel();
 
-        hotel.addRoom(new Room(100, 1001, "suit", true));
-        hotel.addRoom(new Room(200, 2001, "two-bed", false));
-        hotel.addRoom(new Room(100, 1002, "suit", true));
-        hotel.addRoom(new Room(200, 2002, "two-bed", false));
+        hotel.addRoom(new Room(100, 1001, "Suite", true));
+        hotel.addRoom(new Room(200, 2001, "Double-bed", false));
+        hotel.addRoom(new Room(100, 1002, "Suite", true));
+        hotel.addRoom(new Room(200, 2002, "Single-bed", false));
 
         hotel.addEmployee(new Director("One and only Babak Asgari", 28525011, 1000000));
         hotel.addEmployee(new Receptionist("Simona Kardel", 22819043, 500000));

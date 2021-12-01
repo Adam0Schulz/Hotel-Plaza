@@ -15,10 +15,6 @@ public interface RoomInter {
 
     String getType();
 
-    boolean IsAvailable();
-
-    void setIsAvailable(boolean newAvailability);
-
     boolean isWifi();
 
 }
