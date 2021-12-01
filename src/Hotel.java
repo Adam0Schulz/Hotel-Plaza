@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Hotel implements Serializable {
 
@@ -59,17 +58,28 @@ public class Hotel implements Serializable {
         return null;
     }
 
-    public void printOptions (ArrayList arrayList){
-        if (arrayList == null) {
-            System.out.println("This list is empty.");
-        } else {
-            for (int i = 1; i <= arrayList.size(); i++) {
-                        System.out.println(i + " " + arrayList.get(i - 1));
-            }
+    public void printRooms() {
+        for (int i = 1; i < rooms.size(); i++) {
+            System.out.println(i + " " + rooms.get(i - 1));
         }
     }
 
-    public ArrayList searchForEmployee (String name){
+    public void printEmployees() {
+        for (int i = 1; i < employees.size(); i++) {
+            System.out.println(i + " " + employees.get(i - 1));
+        }
+    }
+
+    public void printOptions(ArrayList arrayList) {
+        if (arrayList == null) {
+            System.out.println("This list is empty.");
+        }
+        for (int i = 1; i < arrayList.size(); i++) {
+            System.out.println(i + " " + arrayList.get(i - 1));
+        }
+    }
+
+    public ArrayList searchForEmployee(String name) {
         ArrayList array = new ArrayList();
         for (Object emp : employees) {
             Employee employee = (Employee) emp;
@@ -80,7 +90,7 @@ public class Hotel implements Serializable {
         return array;
     }
 
-    public Room searchForRoom ( int roomNumber){
+    public Room searchForRoom(int roomNumber) {
         for (Room room : rooms) {
             if (room.getRoomNum() == roomNumber) {
                 return room;
@@ -89,7 +99,7 @@ public class Hotel implements Serializable {
         return null;
     }
 
-    public void updateBooking ( int index, Booking booking){
+    public void updateBooking(int index, Booking booking) {
         allBookings.set(index, booking);
     }
 }
