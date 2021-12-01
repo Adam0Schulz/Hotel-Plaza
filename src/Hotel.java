@@ -74,9 +74,10 @@ public class Hotel implements Serializable {
     public void printOptions(ArrayList arrayList){
         if(arrayList == null){
             System.out.println("This list is empty.");
-        }
-        for (int i = 1; i < arrayList.size(); i++){
-            System.out.println(i + " " + arrayList.get(i - 1));
+        } else {
+            for (int i = 1; i <= arrayList.size(); i++){
+                System.out.println(i + " " + arrayList.get(i - 1));
+            }
         }
     }
 

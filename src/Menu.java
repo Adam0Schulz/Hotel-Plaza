@@ -58,7 +58,8 @@ public class Menu {
                     }
                 }
                 break;
-        }
+        } Screen.clear();
+        directorMenu();
     }
 
     // displays menu for modification of employee and changes selected attributes (go back method needs to be added)
@@ -94,7 +95,7 @@ public class Menu {
                 Screen.print(employee.getName() + " has been deleted.");
                 Screen.pause();
                 break;
-        }
+        } Screen.clear();
         directorMenu();
     }
 
@@ -140,7 +141,7 @@ public class Menu {
         attributes.add("Modify room number");
         attributes.add("Modify type");
         attributes.add("Modify wifi");
-        attributes.add("Delete " + currentRoom.getRoomNum() + " from the database");
+        attributes.add("Delete room number " + currentRoom.getRoomNum() + " from the database");
 
         int attribute = Screen.choice(attributes);
 
@@ -175,7 +176,7 @@ public class Menu {
                 Screen.print("Room number " + currentRoom.getRoomNum() + " has been deleted.");
                 Screen.pause();
                 break;
-        }
+        } Screen.clear();
         directorMenu();
     }
 
