@@ -59,52 +59,37 @@ public class Hotel implements Serializable {
         return null;
     }
 
-<<<<<<< HEAD
-    public void printRooms() {
-        for (int i = 1; i < rooms.size(); i++) {
-=======
-/*    public void printRooms(){
-        for (int i = 1; i < rooms.size(); i++){
->>>>>>> 337bc3a6f34ef33eb786b5f14cc8289562c25f79
-            System.out.println(i + " " + rooms.get(i - 1));
-        }
-    }
-
-    public void printEmployees() {
-        for (int i = 1; i < employees.size(); i++) {
-            System.out.println(i + " " + employees.get(i - 1));
-        }
-    }*/
-
-    public void printOptions(ArrayList arrayList){
-        if(arrayList == null){
+    public void printOptions (ArrayList arrayList){
+        if (arrayList == null) {
             System.out.println("This list is empty.");
         } else {
-            for (int i = 1; i <= arrayList.size(); i++){
-                System.out.println(i + " " + arrayList.get(i - 1));
+            for (int i = 1; i <= arrayList.size(); i++) {
+                        System.out.println(i + " " + arrayList.get(i - 1));
             }
         }
     }
 
-    public ArrayList searchForEmployee(String name) {
+    public ArrayList searchForEmployee (String name){
         ArrayList array = new ArrayList();
-        for (Object emp : employees){
+        for (Object emp : employees) {
             Employee employee = (Employee) emp;
-            if(employee.getName().toLowerCase().contains(name.toLowerCase())){
+            if (employee.getName().toLowerCase().contains(name.toLowerCase())) {
                 array.add(employee);
             }
-        } return array;
+        }
+        return array;
     }
 
-    public Room searchForRoom(int roomNumber){
-        for(Room room : rooms){
-            if(room.getRoomNum() == roomNumber){
-               return room;
+    public Room searchForRoom ( int roomNumber){
+        for (Room room : rooms) {
+            if (room.getRoomNum() == roomNumber) {
+                return room;
             }
-        } return null;
+        }
+        return null;
     }
 
-    public void updateBooking(int index, Booking booking) {
+    public void updateBooking ( int index, Booking booking){
         allBookings.set(index, booking);
     }
 }
