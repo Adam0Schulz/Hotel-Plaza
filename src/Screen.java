@@ -72,7 +72,7 @@ abstract class Screen {
     public static Object chooseListItem(ArrayList array) {
 
         try {
-            Object object = (Object) array.get(1);
+            Object object = (Object) array.get(0);
         } catch (Exception e) {
             print("\nThis list is empty\n");
             pause();
@@ -85,41 +85,41 @@ abstract class Screen {
 
         }
 
-        if (array.get(1) instanceof Room) {
+        if (array.get(0) instanceof Room) {
             Room room;
             int choice = choice(strings);
             room = (Room) array.get(choice);
             return room;
 
-        } else if (array.get(1) instanceof Booking) {
+        } else if (array.get(0) instanceof Booking) {
             Booking booking;
 
             int choice = choice(strings);
-            booking = (Booking) array.get(choice);
+            booking = (Booking) array.get(choice - 1);
             return booking;
 
-        } else if (array.get(1) instanceof Guest) {
+        } else if (array.get(0) instanceof Guest) {
             Guest guest;
 
             int choice = choice(strings);
             guest = (Guest) array.get(choice);
             return guest;
 
-        } else if (array.get(1) instanceof Employee) {
+        } else if (array.get(0) instanceof Employee) {
             Employee employee;
 
             int choice = choice(strings);
             employee = (Employee) array.get(choice);
             return employee;
 
-        } else if (array.get(1) instanceof String) {
+        } else if (array.get(0) instanceof String) {
             String string;
 
             int choice = choice(strings);
             string = (String) array.get(choice);
             return string;
 
-        } else if (array.get(1) instanceof Integer) {
+        } else if (array.get(0) instanceof Integer) {
             int integer;
 
             int choice = choice(strings);

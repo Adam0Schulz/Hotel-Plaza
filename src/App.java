@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class App {
 
     private static Hotel hotel = DatabaseConn.load("database.ser");
-    private static Employee currentUser;
+    private static Employee emp;
 
     public static Hotel getDatabase() {
         return hotel;
@@ -14,8 +14,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         // System.out.println("hello");
         // Screen.window();
-        // login();
 
+        // login();
+        Screen.print(hotel.toString());
+        Menu.receptionistMenu();
+        // Menu.accountantMenu();
     }
 
     public static void login() {
@@ -26,19 +29,7 @@ public class App {
 
                 String password = Screen.enter("your password ");
                 if (((Employee) hotel.getEmployees().get(i)).getPassword().equals(password)) {
-                    if (hotel.getEmployees().get(i) instanceof Director) {
-                        currentUser = (Director) hotel.getEmployees().get(i);
-                        mainMenu();
-                    } else if (hotel.getEmployees().get(i) instanceof Accountant) {
-                        currentUser = (Accountant) hotel.getEmployees().get(i);
-                        Menu.accountantMenu();
-                    } else if (hotel.getEmployees().get(i) instanceof Receptionist) {
-                        currentUser = (Receptionist) hotel.getEmployees().get(i);
-                        Menu.receptionistMenu();
-                    } else if (hotel.getEmployees().get(i) instanceof CleaningPersonel) {
-                        currentUser = (CleaningPersonel) hotel.getEmployees().get(i);
-                        mainMenu();
-                    }
+                    emp = (Employee) hotel.getEmployees().get(i);
 
                 } else {
                     Screen.error("This password is incorrect");
@@ -47,11 +38,18 @@ public class App {
 
             }
         }
-        currentUser = null;
+        emp = null;
     }
 
     public static void mainMenu() {
-        Screen.print("Main menu");
+        if (emp instanceof Director) {
+            mainMenu();
+        } else if (emp instanceof Accountant) {
+            Menu.accountantMenu();
+        } else if (emp instanceof Receptionist) {
+            Menu.receptionistMenu();
+        } else if (emp instanceof CleaningPersonel) {
+            mainMenu();
+        }
     }
-
 }

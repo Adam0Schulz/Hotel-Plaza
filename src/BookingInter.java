@@ -1,6 +1,4 @@
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.ArrayList;
 
 public interface BookingInter {
 
@@ -21,10 +19,10 @@ public interface BookingInter {
 
     long calcNumOfNights(LocalDate startDate, LocalDate endDate); // sets the number of nights to calculated amount
 
-    ArrayList<Guest> getGuests();
+    Guest getGuest();
 
-    void addGuest(Guest guest);
+    // void addGuest(Guest guest);
 
-    void removeGuest(Guest guest);
+    // void removeGuest(Guest guest);
 
 }

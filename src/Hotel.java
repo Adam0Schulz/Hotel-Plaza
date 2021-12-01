@@ -59,14 +59,19 @@ public class Hotel implements Serializable {
         return null;
     }
 
+<<<<<<< HEAD
+    public void printRooms() {
+        for (int i = 1; i < rooms.size(); i++) {
+=======
 /*    public void printRooms(){
         for (int i = 1; i < rooms.size(); i++){
+>>>>>>> 337bc3a6f34ef33eb786b5f14cc8289562c25f79
             System.out.println(i + " " + rooms.get(i - 1));
         }
     }
 
-    public void printEmployees(){
-        for (int i = 1; i < employees.size(); i++){
+    public void printEmployees() {
+        for (int i = 1; i < employees.size(); i++) {
             System.out.println(i + " " + employees.get(i - 1));
         }
     }*/
@@ -99,4 +104,7 @@ public class Hotel implements Serializable {
         } return null;
     }
 
+    public void updateBooking(int index, Booking booking) {
+        allBookings.set(index, booking);
+    }
 }
