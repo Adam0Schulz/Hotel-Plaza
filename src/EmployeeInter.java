@@ -10,6 +10,6 @@ public interface EmployeeInter {
 
     double getSalary();
 
-    void setSalary(double newSalary);
+    void setSalary(int newSalary);
 
 }

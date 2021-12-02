@@ -7,7 +7,6 @@ public class Room implements Serializable {
     private String type;
     private boolean isAvailable = true;
     private boolean wifi;
-    private boolean isClean = true;
 
     // Constructor
     public Room(double price, int roomNum, String type, boolean wifi) {
@@ -15,6 +14,7 @@ public class Room implements Serializable {
         this.setRoomNum(roomNum);
         this.setType(type);
         this.setWifi(wifi);
+
     }
 
     // Getters and Setters
@@ -60,14 +60,6 @@ public class Room implements Serializable {
 
     public void setWifi(boolean wifi) {
         this.wifi = wifi;
-    }
-
-    public void setIsClean(boolean clean) {
-        this.isClean = clean;
-    }
-
-    public boolean getIsClean() {
-        return isClean;
     }
 
     public String toString() {

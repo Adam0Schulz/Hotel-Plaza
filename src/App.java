@@ -16,9 +16,10 @@ public class App {
         // Screen.window();
 
         // login();
-        Screen.print(hotel.toString());
-        Menu.receptionistMenu();
+        //Screen.print(hotel.toString());
+        //Menu.receptionistMenu();
         // Menu.accountantMenu();
+        Menu.cleaningPersonelMenu();
     }
 
     public static void login() {
