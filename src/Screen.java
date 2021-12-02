@@ -88,7 +88,7 @@ abstract class Screen {
         if (array.get(0) instanceof Room) {
             Room room;
             int choice = choice(strings);
-            room = (Room) array.get(choice);
+            room = (Room) array.get(choice - 1);
             return room;
 
         } else if (array.get(0) instanceof Booking) {
@@ -102,28 +102,28 @@ abstract class Screen {
             Guest guest;
 
             int choice = choice(strings);
-            guest = (Guest) array.get(choice);
+            guest = (Guest) array.get(choice - 1);
             return guest;
 
         } else if (array.get(0) instanceof Employee) {
             Employee employee;
 
             int choice = choice(strings);
-            employee = (Employee) array.get(choice);
+            employee = (Employee) array.get(choice - 1);
             return employee;
 
         } else if (array.get(0) instanceof String) {
             String string;
 
             int choice = choice(strings);
-            string = (String) array.get(choice);
+            string = (String) array.get(choice - 1);
             return string;
 
         } else if (array.get(0) instanceof Integer) {
             int integer;
 
             int choice = choice(strings);
-            integer = (int) array.get(choice);
+            integer = (int) array.get(choice - 1);
             return integer;
 
         } else {
