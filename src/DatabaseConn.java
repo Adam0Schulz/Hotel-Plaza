@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public abstract class DatabaseConn {
 
     public static void main(String[] args) {
-        // delete();
+        //delete();
         initialCreation();
     }
 

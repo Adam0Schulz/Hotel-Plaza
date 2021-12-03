@@ -5,14 +5,14 @@ abstract class Employee implements EmployeeInter, Serializable {
 
     private String name;
     private int phoneNum;
-    private double salary;
+    private int salary;
     private String password;
 
     public Employee() {
 
     }
 
-    public Employee(String name, int phoneNum, double salary) {
+    public Employee(String name, int phoneNum, int salary) {
         this.setName(name);
         this.setPhoneNum(phoneNum);
         this.setSalary(salary);
@@ -55,7 +55,7 @@ abstract class Employee implements EmployeeInter, Serializable {
         return salary;
     }
 
-    public void setSalary(double newSalary) {
+    public void setSalary(int newSalary) {
         this.salary = newSalary;
     }
 

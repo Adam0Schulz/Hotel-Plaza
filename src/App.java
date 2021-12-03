@@ -12,9 +12,10 @@ public class App {
         // System.out.println("hello");
         // Screen.window();
 
-        // login();
-        Menu.receptionistMenu();
+        login();
+        // Menu.receptionistMenu();
         // Menu.accountantMenu();
+        // Menu.cleaningPersonelMenu();
     }
 
     public static void login() {

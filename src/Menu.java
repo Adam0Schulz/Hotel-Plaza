@@ -3,6 +3,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.awt.Desktop;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Menu {
 
@@ -50,7 +52,7 @@ public class Menu {
                 break;
             case 6:
                 int roomNumber = Screen.enterInt("room number");
-                Room searchedRoom = hotel.searchForRoom(roomNumber);
+                Room searchedRoom = hotel.getRoom(roomNumber);
                 if (searchedRoom == null) {
                     Screen.print("No match found");
                 } else {
@@ -67,7 +69,6 @@ public class Menu {
     }
 
     // displays menu for modification of employee and changes selected attributes
-    // (go back method needs to be added)
     public static void modifyEmployee(Employee employee) {
         ArrayList<String> opt = new ArrayList<>();
         opt.add("Modify name");
@@ -124,7 +125,7 @@ public class Menu {
         String[] employeeToAdd = Screen.enter("full name, phoneNum and salary separated by comma and space").split(", ",
                 3);
         int newNum = Integer.parseInt(employeeToAdd[1]);
-        double newSalary = Double.parseDouble(employeeToAdd[2]);
+        int newSalary = Integer.parseInt(employeeToAdd[2]);
         switch (input) {
             case 1:
                 hotel.addEmployee(new Accountant(employeeToAdd[0], newNum, newSalary));
@@ -398,7 +399,10 @@ public class Menu {
     }
 
     public static void cleaningPersonelMenu() {
-        // see rooms to clean
-
+        Screen.print("To mark room as cleaned please enter the corresponding number.");
+        hotel.roomsToClean();
+        Screen.pause();
+        Screen.clear();
+        cleaningPersonelMenu();
     }
 }

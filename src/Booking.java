@@ -15,6 +15,7 @@ public class Booking implements BookingInter, Serializable {
     private long numOfNights;
     private Guest guest;
     private Room room;
+    private String status;
 
     public Booking(LocalDate startDate, LocalDate endDate, Room room, Guest guest) {
         this.setStartDate(startDate);
@@ -22,7 +23,7 @@ public class Booking implements BookingInter, Serializable {
         this.numOfNights = calcNumOfNights(startDate, endDate);
         this.room = room;
         this.guest = guest;
-        this.room.addOccupied(startDate, numOfNights);
+        this.status = "to be cleaned";
     }
 
     public LocalDate getStartDate() {
@@ -53,6 +54,18 @@ public class Booking implements BookingInter, Serializable {
         return guest;
     }
 
+    /*
+     * public void addGuest(Guest guest) {
+     * guests.add(guest);
+     * }
+     */
+
+    /*
+     * public void removeGuest(Guest guest) {
+     * guests.remove(guest);
+     * }
+     */
+
     public void setRoom(Room room) {
         this.room = room;
     }
@@ -79,6 +92,15 @@ public class Booking implements BookingInter, Serializable {
         }
 
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     public String toString() {
         return startDate + " " + endDate + " " + numOfNights + " " + guest;

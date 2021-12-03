@@ -1,6 +1,6 @@
 public class Receptionist extends Employee {
 
-    public Receptionist(String name, int phoneNum, double salary) {
+    public Receptionist(String name, int phoneNum, int salary) {
         super(name, phoneNum, salary);
 
     }

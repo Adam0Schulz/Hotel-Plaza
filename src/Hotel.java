@@ -1,5 +1,11 @@
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Locale;
 
 public class Hotel implements Serializable {
 
@@ -42,6 +48,7 @@ public class Hotel implements Serializable {
         allBookings.add(booking);
         Room room = getRoom(booking.getRoomNum());
         room.addOccupied(booking.getStartDate(), booking.getNumOfNights());
+        ;
         addRoom(room);
     }
 
@@ -58,24 +65,13 @@ public class Hotel implements Serializable {
         return null;
     }
 
-    public void printRooms() {
-        for (int i = 1; i < rooms.size(); i++) {
-            System.out.println(i + " " + rooms.get(i - 1));
-        }
-    }
-
-    public void printEmployees() {
-        for (int i = 1; i < employees.size(); i++) {
-            System.out.println(i + " " + employees.get(i - 1));
-        }
-    }
-
     public void printOptions(ArrayList arrayList) {
         if (arrayList == null) {
             System.out.println("This list is empty.");
-        }
-        for (int i = 1; i < arrayList.size(); i++) {
-            System.out.println(i + " " + arrayList.get(i - 1));
+        } else {
+            for (int i = 1; i <= arrayList.size(); i++) {
+                System.out.println(i + " " + arrayList.get(i - 1));
+            }
         }
     }
 
@@ -90,16 +86,32 @@ public class Hotel implements Serializable {
         return array;
     }
 
-    public Room searchForRoom(int roomNumber) {
-        for (Room room : rooms) {
-            if (room.getRoomNum() == roomNumber) {
-                return room;
-            }
-        }
-        return null;
-    }
-
     public void updateBooking(int index, Booking booking) {
         allBookings.set(index, booking);
     }
+
+    public void roomsToClean() {
+        Comparator<Booking> byDate = (b1, b2) -> {
+            if (b1.getEndDate().isBefore(b2.getEndDate())) {
+                return -1;
+            } else if (b1.getEndDate().isEqual(b2.getEndDate())) {
+                return 0;
+            } else {
+                return 1;
+            }
+        };
+
+        allBookings.sort(byDate);
+
+        for (int i = 1; i <= allBookings.size(); i++) {
+            String formattedDate = allBookings.get(i - 1).getEndDate()
+                    .format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+            System.out.println(i + ":   Room number: " + allBookings.get(i - 1).getRoomNum() + "   Scheduled cleaning: "
+                    + formattedDate + "   Status: " + allBookings.get(i - 1).getStatus());
+        }
+        int cleanedRoom = Screen.scanInt() - 1;
+        allBookings.get(cleanedRoom).setStatus("cleaned");
+        Screen.print("Room number " + allBookings.get(cleanedRoom).getRoomNum() + " was marked as cleaned.");
+    }
+
 }
