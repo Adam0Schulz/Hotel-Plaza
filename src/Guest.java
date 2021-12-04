@@ -34,6 +34,9 @@ public class Guest implements GuestInter, Serializable {
 
     public void setPhoneNum(int phoneNum) {
         this.phoneNum = phoneNum;
+    }
 
+    public String toString(){
+        return name;
     }
 }

@@ -80,6 +80,6 @@ public class Room implements Serializable {
     }
 
     public String toString() {
-        return "Room number: " + roomNum + " Price: " + price + " Type: " + type;
+        return Screen.GREEN + "Room number: " + Screen.RESET + roomNum + Screen.GREEN + " Price: " + Screen.RESET + price + Screen.GREEN + " Type: " + Screen.RESET + type + Screen.GREEN + " Wifi: " + Screen.RESET + wifi;
     }
 }

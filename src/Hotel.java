@@ -47,7 +47,6 @@ public class Hotel implements Serializable {
     public void addBooking(Booking booking) {
         allBookings.add(booking);
         Room room = getRoom(booking.getRoomNum());
-        room.setIsAvailable(false);
         addRoom(room);
     }
 
@@ -69,7 +68,7 @@ public class Hotel implements Serializable {
             System.out.println("This list is empty.");
         } else {
             for (int i = 1; i <= arrayList.size(); i++) {
-                        System.out.println(i + " " + arrayList.get(i - 1));
+                        System.out.println(i + ": " + arrayList.get(i - 1));
             }
         }
     }
@@ -105,7 +104,7 @@ public class Hotel implements Serializable {
 
         for(int i = 1; i <= allBookings.size(); i++){
             String formattedDate = allBookings.get(i -1).getEndDate().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
-            System.out.println(i + ":   Room number: " + allBookings.get(i - 1).getRoomNum() + "   Scheduled cleaning: " + formattedDate + "   Status: " + allBookings.get(i - 1).getStatus());
+            System.out.println(i + ":   " + Screen.GREEN + "Room number: " + Screen.RESET + allBookings.get(i - 1).getRoomNum() + Screen.GREEN + "   Scheduled cleaning: " + Screen.RESET + formattedDate + Screen.GREEN + "   Status: " + Screen.RESET + allBookings.get(i - 1).getStatus());
         }
         int cleanedRoom = Screen.scanInt() - 1;
         allBookings.get(cleanedRoom).setStatus("cleaned");

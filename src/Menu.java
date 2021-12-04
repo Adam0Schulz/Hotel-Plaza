@@ -5,10 +5,15 @@ import java.awt.Desktop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.logging.ConsoleHandler;
 
 public class Menu {
 
     static Hotel hotel = App.getDatabase();
+
+    public static final String WHITE_UNDERLINED = "\033[4;37m";
+    public static final String RESET = "\033[0m";
+    public static final String MAGENTA_UNDERLINED = "\033[4;35m";
 
     public static void directorMenu() throws NumberFormatException {
         ArrayList<String> options = new ArrayList<>();
@@ -19,6 +24,7 @@ public class Menu {
         options.add("List all rooms");
         options.add("Search for room by number");
 
+        Screen.print("To save changes and log out at anytime enter 'Q'");
         int choice = Screen.choice(options);
         switch (choice) {
             case 1:
@@ -30,21 +36,25 @@ public class Menu {
                 break;
             case 3:
                 String name = Screen.enter("name of the employee");
-                Screen.print("To modify employee please enter the corresponding number.");
                 ArrayList searchedEmployees = hotel.searchForEmployee(name);
+                Screen.print("To modify employee please enter the corresponding number");
                 hotel.printOptions(searchedEmployees);
                 int employeeIndex = Screen.scanInt();
                 modifyEmployee((Employee) searchedEmployees.get(employeeIndex - 1));
                 break;
             case 4:
                 String[] roomToAdd = Screen.enter(
-                        "price, room number, room type(single / double / suite) and true/false for wifi as in example below.\n999, 345, double, true")
-                        .split(", ", 4);
-                double newPrice = Double.parseDouble(roomToAdd[0]);
+                        "price, room number, room type and true/false for wifi separated by comma and space (e.g. 749, 1002, single-bed, true)").split(", ", 4);
                 int newRoomNumber = Integer.parseInt(roomToAdd[1]);
-                boolean newWifi = Boolean.parseBoolean(roomToAdd[3]);
-                hotel.addRoom(new Room(newPrice, newRoomNumber, roomToAdd[2], newWifi));
-                Screen.print("Room number " + newRoomNumber + " has been added.");
+                if(hotel.getRoom(newRoomNumber) != null){
+                    Screen.print("Room number " + newRoomNumber + " already exists.");
+                    directorMenu();
+                } else {
+                    double newPrice = Double.parseDouble(roomToAdd[0]);
+                    boolean newWifi = Boolean.parseBoolean(roomToAdd[3]);
+                    hotel.addRoom(new Room(newPrice, newRoomNumber, roomToAdd[2], newWifi));
+                    Screen.print("Room number " + newRoomNumber + " has been added.");
+                }
                 break;
             case 5:
                 Room currentRoom = listRooms();
@@ -55,8 +65,9 @@ public class Menu {
                 Room searchedRoom = hotel.getRoom(roomNumber);
                 if (searchedRoom == null) {
                     Screen.print("No match found");
+                    Screen.pause();
                 } else {
-                    Screen.print("To modify room please enter '1'.");
+                    Screen.print("To modify room please enter '1'");
                     Screen.print(searchedRoom);
                     if (Screen.scanInt() == 1) {
                         modifyRoom(searchedRoom);
@@ -108,7 +119,7 @@ public class Menu {
 
     // prints all employees and returns selected employee
     public static Employee listEmployees() {
-        Screen.print("To modify employee please enter the corresponding number.");
+        Screen.print("To modify employee please enter the corresponding number");
         hotel.printOptions(hotel.getEmployees());
         int employeeIndex = Screen.scanInt();
         return (Employee) hotel.getEmployees().get(employeeIndex - 1);
@@ -129,15 +140,15 @@ public class Menu {
         switch (input) {
             case 1:
                 hotel.addEmployee(new Accountant(employeeToAdd[0], newNum, newSalary));
-                Screen.print("Employee has been added to the database.");
+                Screen.print(employeeToAdd[0] + " has been added to the database.");
                 break;
             case 2:
                 hotel.addEmployee(new Receptionist(employeeToAdd[0], newNum, newSalary));
-                Screen.print("Employee has been added to the database.");
+                Screen.print(employeeToAdd[0] + " has been added to the database.");
                 break;
             case 3:
                 hotel.addEmployee(new CleaningPersonel(employeeToAdd[0], newNum, newSalary));
-                Screen.print("Employee has been added to the database.");
+                Screen.print(employeeToAdd[0] + " has been added to the database.");
                 break;
         }
     }
@@ -191,7 +202,7 @@ public class Menu {
 
     // prints all rooms and returns selected room
     public static Room listRooms() {
-        Screen.print("To modify room please enter the corresponding number.");
+        Screen.print("To modify room please enter the corresponding number");
         hotel.printOptions(hotel.getRooms());
         return hotel.getRooms().get(Screen.scanInt() - 1);
     }
@@ -202,7 +213,7 @@ public class Menu {
         options.add("Create a booking");
         options.add("Modify a booking");
 
-        Screen.print(hotel.getBookings().size() + ", " + hotel.getBookings().get(0).getGuest().getName());
+        // Screen.print(hotel.getBookings().size() + ", " + hotel.getBookings().get(0).getGuest().getName());
         // Displays options and stores the choice input
         int choice = Screen.choice(options);
         switch (choice) {
@@ -219,7 +230,7 @@ public class Menu {
                 LocalDate endDate = null;
                 try {
                     startDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
-                    endDate = LocalDate.parse(Screen.enter("start date of the booking (yyyy-mm-dd): "));
+                    endDate = LocalDate.parse(Screen.enter("end date of the booking (yyyy-mm-dd): "));
                 } catch (Exception e) {
                     Screen.error("Incorrect date format");
                     receptionistMenu();
@@ -333,8 +344,8 @@ public class Menu {
                         Screen.print("Previous room number: " + result.getRoomNum());
                         int nRoomNum = Screen.enterInt("New room number of the booking: ");
                         if (hotel.getRoom(nRoomNum) == null) {
-                            if (hotel.getRoom(nRoomNum).isOccupied(result.getStartDate(),
-                                    result.getNumOfNights()) == false) {
+                            if (!hotel.getRoom(nRoomNum).isOccupied(result.getStartDate(),
+                                    result.getNumOfNights())) {
                                 result.setRoom(hotel.getRoom(nRoomNum));
                                 Screen.print("Room number successfully changed");
                             } else {
@@ -356,8 +367,8 @@ public class Menu {
     public static void accountantMenu() {
         // Creates options for attributes that can be updated
         ArrayList<String> options = new ArrayList<String>();
-        options.add("View the booking history table");
-        options.add("View the employees table");
+        options.add("View history of bookings");
+        options.add("View employees table");
 
         // Displays options and stores the choice input
         int choice = Screen.choice(options);
@@ -369,19 +380,18 @@ public class Menu {
                 case 1:
                     ArrayList<Booking> bookings = hotel.getBookings();
 
-                    writer.write("booking start date;booking end date;booking room number\n");
+                    writer.write("Booking start date;Booking end date;Number of nights;Price per night (dkk); Total price (dkk);\n");
                     for (Booking booking : bookings) {
                         writer.write(
-                                booking.getStartDate() + ";" + booking.getEndDate() + ";" + booking.getRoomNum()
-                                        + "\n");
+                                booking.getStartDate() + ";" + booking.getEndDate() + ";" + booking.getNumOfNights() +";"+ booking.getPrice() + ";" + booking.getPrice() * booking.getNumOfNights() + "\n");
                     }
                     break;
                 case 2:
                     ArrayList<Employee> employees = hotel.getEmployees();
 
-                    writer.write("Employee's name;position;salary\n");
+                    writer.write("Employee's name;Position;Monthly salary (dkk)\n");
                     for (Employee employee : employees) {
-                        writer.write(employee.getName() + ";;" + employee.getSalary() + "\n");
+                        writer.write(employee.getName() + ";" + employee.getTitle() + ";" + employee.getSalary() + "\n");
                     }
                     break;
             }
@@ -399,7 +409,7 @@ public class Menu {
     }
 
     public static void cleaningPersonelMenu() {
-        Screen.print("To mark room as cleaned please enter the corresponding number.");
+        Screen.print("To mark room as cleaned please enter the corresponding number");
         hotel.roomsToClean();
         Screen.pause();
         Screen.clear();

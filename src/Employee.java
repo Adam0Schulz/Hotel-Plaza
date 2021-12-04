@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.Random;
+import java.text.*;
 
 abstract class Employee implements EmployeeInter, Serializable {
 
@@ -7,16 +8,18 @@ abstract class Employee implements EmployeeInter, Serializable {
     private int phoneNum;
     private int salary;
     private String password;
+    private String title;
 
     public Employee() {
 
     }
 
-    public Employee(String name, int phoneNum, int salary) {
+    public Employee(String name, int phoneNum, int salary, String title) {
         this.setName(name);
         this.setPhoneNum(phoneNum);
         this.setSalary(salary);
         createPassword();
+        this.setTitle(title);
     }
 
     private void createPassword() {
@@ -28,7 +31,7 @@ abstract class Employee implements EmployeeInter, Serializable {
             password += passwordCharacters.charAt(r);
         }
         this.password = password;
-        Screen.print(password);
+        Screen.print("Login credentials:\nName: " + name + "\nPassword: " + password);
     }
 
     public String getPassword() {
@@ -60,6 +63,14 @@ abstract class Employee implements EmployeeInter, Serializable {
     }
 
     public String toString() {
-        return "Name: " + name;
+        return Screen.GREEN + "Position: " + Screen.RESET + title + Screen.GREEN + " Name: " + Screen.RESET + name + Screen.GREEN + " Monthly salary: " + Screen.RESET + salary + Screen.GREEN + " Phone number: " + Screen.RESET + phoneNum + password;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

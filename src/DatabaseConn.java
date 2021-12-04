@@ -4,7 +4,7 @@ import java.time.LocalDate;
 public abstract class DatabaseConn {
 
     public static void main(String[] args) {
-        //delete();
+        delete();
         initialCreation();
     }
 
@@ -52,25 +52,56 @@ public abstract class DatabaseConn {
     public static void initialCreation() {
         Hotel hotel = new Hotel();
 
-        hotel.addRoom(new Room(100, 1001, "Suite", true));
-        hotel.addRoom(new Room(200, 2001, "Double-bed", false));
-        hotel.addRoom(new Room(100, 1002, "Suite", true));
-        hotel.addRoom(new Room(200, 2002, "Single-bed", false));
+        hotel.addRoom(new Room(2499, 1001, "Suite", true));
+        hotel.addRoom(new Room(2499, 2001, "Suite", true));
+        hotel.addRoom(new Room(2499, 3002, "Suite", true));
+        hotel.addRoom(new Room(2499, 2002, "Suite", true));
+        hotel.addRoom(new Room(549, 1002, "Single-bed", false));
+        hotel.addRoom(new Room(549, 2003, "Single-bed", false));
+        hotel.addRoom(new Room(599, 1003, "Single-bed", true));
+        hotel.addRoom(new Room(599, 2004, "Single-bed", true));
+        hotel.addRoom(new Room(599, 1004, "Single-bed", true));
+        hotel.addRoom(new Room(749, 2005, "Double-bed", false));
+        hotel.addRoom(new Room(749, 1005, "Double-bed", false));
+        hotel.addRoom(new Room(799, 2006, "Double-bed", true));
+        hotel.addRoom(new Room(799, 1006, "Double-bed", true));
+        hotel.addRoom(new Room(799, 2007, "Double-bed", true));
+        hotel.addRoom(new Room(799, 1007, "Double-bed", true));
+        hotel.addRoom(new Room(799, 2008, "Double-bed", true));
 
-        hotel.addEmployee(new Director("One and only Babak Asgari", 28525011, 1000000));
-        hotel.addEmployee(new Receptionist("Simona Kardel", 22819043, 500000));
-        hotel.addEmployee(new Accountant("random guy or girl", 22558866, 2000));
-        hotel.addEmployee(new CleaningPersonel("Adam Schulz", 33557799, 200));
+        hotel.addEmployee(new Director("Babak Asgari", 28525011, 75000));
+        hotel.addEmployee(new Receptionist("Simona Kardel", 22819043, 30000));
+        hotel.addEmployee(new Receptionist("Joanna Meyers", 22819043, 30000));
+        hotel.addEmployee(new Receptionist("Søren Thompson", 22819043, 30000));
+        hotel.addEmployee(new Accountant("Jessica White", 22558866, 50000));
+        hotel.addEmployee(new CleaningPersonel("Adam Schulz", 33557799, 20000));
+        hotel.addEmployee(new CleaningPersonel("Stine Petersen", 33577799, 20000));
+        hotel.addEmployee(new CleaningPersonel("Steen Jeppesen", 33577799, 20000));
+        hotel.addEmployee(new CleaningPersonel("Maria Mendoza", 37579899, 20000));
 
         LocalDate today = LocalDate.now();
 
         hotel.addBooking(new Booking(today, today.plusDays(3),
                 hotel.getRooms().get(1),
-                new Guest("Adam Schulz", "Address 12", 11477)));
+                new Guest("Adam Schulz", "Amagerbrogade 135, 2300 København S", 11445567)));
         hotel.addBooking(new Booking(today, today.plusDays(7),
                 hotel.getRooms().get(0),
-                new Guest("John Random", "Address 2", 8877)));
-
+                new Guest("John Tingleff", "Tingvej 25, København S", 88774546)));
+        hotel.addBooking(new Booking(today.plusDays(8), today.plusDays(14),
+                hotel.getRooms().get(9),
+                new Guest("Susan Fitzgerald", "Ebbe Rodes Alle 25, 2500 Valby", 88756546)));
+        hotel.addBooking(new Booking(today.plusDays(8), today.plusDays(14),
+                hotel.getRooms().get(6),
+                new Guest("Ole Hendersen", "Frederiksberg Alle 62, 1610", 88756546)));
+        hotel.addBooking(new Booking(today.plusDays(25), today.plusDays(30),
+                hotel.getRooms().get(6),
+                new Guest("Brigit Nielsen", "Nialsgade, 2300 København S", 88756546)));
+        hotel.addBooking(new Booking(today.plusDays(45), today.plusDays(52),
+                hotel.getRooms().get(10),
+                new Guest("Thomas Sørensen", "Rose Lillevej 19, 2300 København S", 88756546)));
+        hotel.addBooking(new Booking(today.plusDays(47), today.plusDays(58),
+                hotel.getRooms().get(12),
+                new Guest("Nina Johnson", "Holbersgade 22, 1025 København K", 88756546)));
         save(hotel);
     }
 

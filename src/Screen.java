@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 
 abstract class Screen {
 
+
+    public static final String RESET = "\033[0m";  // Text color reset
+    public static final String GREEN = "\033[0;32m";   // GREEN color
     public static Scanner scanner = new Scanner(System.in);
 
     // GUI
@@ -33,9 +36,9 @@ abstract class Screen {
 
     }
 
-    // Enter method - returns your answear after a request
+    // Enter method - returns your answer after a request
     public static String enter(String info) {
-        print("Please enter " + info + ": ");
+        print( "Please enter " + info + ": ");
         return scanStr();
     }
 
@@ -175,6 +178,8 @@ abstract class Screen {
             clear();
             System.exit(0);
 
+        } else if (Integer.parseInt(input) == 0) {
+            App.mainMenu();
         }
         int intInput = 1;
         try {
@@ -183,9 +188,9 @@ abstract class Screen {
             print(new Error("Error: expected input type - int"));
             App.mainMenu();
         }
-        if (intInput == 0) {
-            App.mainMenu();
-        }
+        //if (intInput == 0) {
+            //App.mainMenu();
+        //}
 
         return intInput;
     }

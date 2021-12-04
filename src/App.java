@@ -14,23 +14,23 @@ public class App {
     public static void main(String[] args) throws Exception {
         // System.out.println("hello");
         // Screen.window();
-
-        // login();
         //Screen.print(hotel.toString());
-        //Menu.receptionistMenu();
-        // Menu.accountantMenu();
-        Menu.cleaningPersonelMenu();
+        login();
+
+
     }
 
     public static void login() {
-        String name = Screen.enter("your full name ");
+        String name = Screen.enter("your full name");
         for (int i = 0; i < hotel.getEmployees().size(); i++) {
             Screen.print(hotel.getEmployees());
             if (((Employee) hotel.getEmployees().get(i)).getName().equalsIgnoreCase(name)) {
 
-                String password = Screen.enter("your password ");
+                String password = Screen.enter("your password");
                 if (((Employee) hotel.getEmployees().get(i)).getPassword().equals(password)) {
                     emp = (Employee) hotel.getEmployees().get(i);
+                    Screen.clear();
+                    mainMenu();
 
                 } else {
                     Screen.error("This password is incorrect");
@@ -44,13 +44,13 @@ public class App {
 
     public static void mainMenu() {
         if (emp instanceof Director) {
-            mainMenu();
+            Menu.directorMenu();
         } else if (emp instanceof Accountant) {
             Menu.accountantMenu();
         } else if (emp instanceof Receptionist) {
             Menu.receptionistMenu();
         } else if (emp instanceof CleaningPersonel) {
-            mainMenu();
+            Menu.cleaningPersonelMenu();
         }
     }
 }

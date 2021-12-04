@@ -77,12 +77,16 @@ public class Booking implements BookingInter, Serializable {
     public void printReceipt() {
         try {
             FileWriter writer = new FileWriter("receipt" + room.getRoomNum() + ".txt");
+            writer.write("Hotel Plaza\n");
+            writer.write("Address: Bernstorffsgade 4, 1577 København\n");
+            writer.write("Phone: 33 14 92 62\n\n");
             writer.write("Room number: " + room.getRoomNum() + "\n");
             writer.write("Start date: " + startDate + "\n");
             writer.write("End date: " + endDate + "\n");
             writer.write("Number of nights: " + numOfNights + "\n");
-            writer.write("Guest: " + guest.getName() + " " + guest.getPhoneNum() + "\n");
-            writer.write("Price: " + room.getPrice() + "\n");
+            writer.write("Guest: " + guest.getName() + " Phone number: " + guest.getPhoneNum() + "\n");
+            writer.write("Price per night: " + room.getPrice() + "dkk\n");
+            writer.write("Price in total: " + (getPrice() * numOfNights) + "dkk\n");
             writer.close();
 
             Runtime.getRuntime().exec("python txtToPdf.py");
@@ -101,9 +105,12 @@ public class Booking implements BookingInter, Serializable {
         this.status = status;
     }
 
-
     public String toString() {
-        return startDate + " " + endDate + " " + numOfNights + " " + guest;
+        return Screen.GREEN + "Start date: " + Screen.RESET + startDate + Screen.GREEN + " End date: " + Screen.RESET + endDate + Screen.GREEN + " Number of nights: " + Screen.RESET + numOfNights + Screen.GREEN + " Guest´s name: " + Screen.RESET + guest;
+    }
+
+    public double getPrice(){
+       return room.getPrice();
     }
 
 }
