@@ -11,10 +11,6 @@ public class Menu {
 
     static Hotel hotel = App.getDatabase();
 
-    public static final String WHITE_UNDERLINED = "\033[4;37m";
-    public static final String RESET = "\033[0m";
-    public static final String MAGENTA_UNDERLINED = "\033[4;35m";
-
     public static void directorMenu() throws NumberFormatException {
         ArrayList<String> options = new ArrayList<>();
         options.add("List all employees");
