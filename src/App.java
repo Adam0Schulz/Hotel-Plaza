@@ -19,7 +19,6 @@ public class App {
     public static void login() {
         String name = Screen.enter("your full name");
         for (int i = 0; i < hotel.getEmployees().size(); i++) {
-            Screen.print(hotel.getEmployees());
             if (((Employee) hotel.getEmployees().get(i)).getName().equalsIgnoreCase(name)) {
 
                 String password = Screen.enter("your password");
