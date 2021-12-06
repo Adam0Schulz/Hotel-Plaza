@@ -1,0 +1,7 @@
+Room number: 2005
+Start date: 2021-12-21
+End date: 2021-12-29
+Number of nights: 8
+Guest: jdjdjdj 84848484
+Price per night: 749.0
+Price in total: 749.0

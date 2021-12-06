@@ -1,0 +1,7 @@
+Room number: 2002
+Start date: 2021-10-12
+End date: 2021-10-24
+Number of nights: 12
+Guest: jdjdjdjd 7171717
+Price per night: 2499.0
+Price in total: 29988.0

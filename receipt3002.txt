@@ -1,0 +1,6 @@
+Room number: 3002
+Start date: 2021-12-06
+End date: 2021-12-07
+Number of nights: 1
+Guest: Gustaf Kardel 88747483
+Price: 2499.0

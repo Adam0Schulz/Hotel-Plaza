@@ -1,0 +1,6 @@
+Room number: 1002
+Start date: 2021-12-21
+End date: 2021-12-26
+Number of nights: 5
+Guest: dkdkd 74774747
+Price: 549.0
