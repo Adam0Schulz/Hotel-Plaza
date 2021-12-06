@@ -63,7 +63,7 @@ abstract class Employee implements EmployeeInter, Serializable {
     }
 
     public String toString() {
-        return Screen.GREEN + "Position: " + Screen.RESET + title + Screen.GREEN + " Name: " + Screen.RESET + name + Screen.GREEN + " Monthly salary: " + Screen.RESET + salary + Screen.GREEN + " Phone number: " + Screen.RESET + phoneNum + password;
+        return Screen.GREEN + "Position: " + Screen.RESET + title + Screen.GREEN + " Name: " + Screen.RESET + name + Screen.GREEN + " Monthly salary: " + Screen.RESET + salary + Screen.GREEN + " Phone number: " + Screen.RESET + phoneNum;
     }
 
     public String getTitle() {

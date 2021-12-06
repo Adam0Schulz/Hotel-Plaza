@@ -74,10 +74,10 @@ public abstract class DatabaseConn {
         hotel.addEmployee(new Receptionist("Joanna Meyers", 22819043, 30000));
         hotel.addEmployee(new Receptionist("Søren Thompson", 22819043, 30000));
         hotel.addEmployee(new Accountant("Jessica White", 22558866, 50000));
-        hotel.addEmployee(new CleaningPersonel("Adam Schulz", 33557799, 20000));
-        hotel.addEmployee(new CleaningPersonel("Stine Petersen", 33577799, 20000));
-        hotel.addEmployee(new CleaningPersonel("Steen Jeppesen", 33577799, 20000));
-        hotel.addEmployee(new CleaningPersonel("Maria Mendoza", 37579899, 20000));
+        hotel.addEmployee(new CleaningPersonnel("Adam Schulz", 33557799, 20000));
+        hotel.addEmployee(new CleaningPersonnel("Stine Petersen", 33577799, 20000));
+        hotel.addEmployee(new CleaningPersonnel("Steen Jeppesen", 33577799, 20000));
+        hotel.addEmployee(new CleaningPersonnel("Maria Mendoza", 37579899, 20000));
 
         LocalDate today = LocalDate.now();
 

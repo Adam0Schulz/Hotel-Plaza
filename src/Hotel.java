@@ -1,11 +1,8 @@
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 public class Hotel implements Serializable {
 
@@ -31,7 +28,7 @@ public class Hotel implements Serializable {
 
     public void addEmployee(Object emp) {
         if (emp instanceof Director || emp instanceof Accountant || emp instanceof Receptionist
-                || emp instanceof CleaningPersonel) {
+                || emp instanceof CleaningPersonnel) {
             employees.add(emp);
         }
     }

@@ -1,7 +1,3 @@
-import java.io.*;
-import java.awt.*;
-import javax.swing.JFrame;
-
 public class App {
 
     private static Hotel hotel = DatabaseConn.load("database.ser");
@@ -49,7 +45,7 @@ public class App {
             Menu.accountantMenu();
         } else if (emp instanceof Receptionist) {
             Menu.receptionistMenu();
-        } else if (emp instanceof CleaningPersonel) {
+        } else if (emp instanceof CleaningPersonnel) {
             Menu.cleaningPersonelMenu();
         }
     }

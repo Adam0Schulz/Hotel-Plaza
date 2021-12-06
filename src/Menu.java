@@ -3,11 +3,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.awt.Desktop;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.logging.ConsoleHandler;
 
-public class Menu {
+public abstract class Menu {
 
     static Hotel hotel = App.getDatabase();
 
@@ -143,7 +140,7 @@ public class Menu {
                 Screen.print(employeeToAdd[0] + " has been added to the database.");
                 break;
             case 3:
-                hotel.addEmployee(new CleaningPersonel(employeeToAdd[0], newNum, newSalary));
+                hotel.addEmployee(new CleaningPersonnel(employeeToAdd[0], newNum, newSalary));
                 Screen.print(employeeToAdd[0] + " has been added to the database.");
                 break;
         }
